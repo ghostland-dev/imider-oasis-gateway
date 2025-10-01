@@ -30,6 +30,8 @@ const Footer = () => {
                 { path: "/village", label: "Le Village" },
                 { path: "/culture", label: "Culture" },
                 { path: "/tourisme", label: "Tourisme" },
+                { path: "/services", label: "E-Services" },
+                { path: "/environnement", label: "Environnement" },
                 { path: "/actualites", label: "Actualités" },
               ].map((item) => (
                 <li key={item.path}>

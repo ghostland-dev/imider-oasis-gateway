@@ -1,6 +1,10 @@
 import { Palette, Music, Languages, Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import PhotoGallery from "@/components/PhotoGallery";
 import artisanatImage from "@/assets/artisanat-imider.jpg";
+import kasbahdImage from "@/assets/kasbah-heritage.jpg";
+import tissageImage from "@/assets/tissage-tradition.jpg";
+import ahidousImage from "@/assets/ahidous-danse.jpg";
 
 const Culture = () => {
   const patrimoineItems = [
@@ -136,6 +140,27 @@ const Culture = () => {
               </div>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      {/* Galerie Photos */}
+      <section className="bg-secondary/30 py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-display font-bold text-foreground mb-8 text-center">
+            Galerie Culturelle
+          </h2>
+          <div className="max-w-6xl mx-auto">
+            <PhotoGallery
+              photos={[
+                { src: kasbahdImage, alt: "Kasbah historique d'Imider", title: "Kasbah Traditionnelle" },
+                { src: artisanatImage, alt: "Artisanat local", title: "Artisanat Amazigh" },
+                { src: tissageImage, alt: "Tissage traditionnel", title: "Tissage de Tapis" },
+                { src: ahidousImage, alt: "Danse Ahidous", title: "Danse Ahidous" },
+                { src: artisanatImage, alt: "Poterie traditionnelle", title: "Poterie" },
+                { src: kasbahdImage, alt: "Architecture pisé", title: "Architecture en Pisé" },
+              ]}
+            />
+          </div>
         </div>
       </section>
     </div>

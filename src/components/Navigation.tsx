@@ -12,6 +12,8 @@ const Navigation = () => {
     { path: "/village", label: "Le Village" },
     { path: "/culture", label: "Culture & Patrimoine" },
     { path: "/tourisme", label: "Tourisme" },
+    { path: "/services", label: "E-Services" },
+    { path: "/environnement", label: "Environnement" },
     { path: "/actualites", label: "Actualités" },
     { path: "/contact", label: "Contact" },
   ];

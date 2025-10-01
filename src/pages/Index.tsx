@@ -1,4 +1,4 @@
-import { Mountain, Users, Palmtree, ArrowRight, Calendar, Heart } from "lucide-react";
+import { Mountain, Users, Palmtree, ArrowRight, Calendar, Heart, FileText, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -40,6 +40,11 @@ const Index = () => {
       title: "Projet de Reforestation",
       category: "Environnement"
     },
+  ];
+
+  const quickServices = [
+    { icon: FileText, label: "E-Services", path: "/services" },
+    { icon: Leaf, label: "Environnement", path: "/environnement" },
   ];
 
   return (
@@ -108,6 +113,27 @@ const Index = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+      </section>
+
+      {/* Quick Services */}
+      <section className="bg-secondary/30 py-12">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap justify-center gap-6">
+            {quickServices.map((service, index) => (
+              <Link key={index} to={service.path}>
+                <Card className="shadow-soft hover:shadow-warm transition-all hover:-translate-y-1 cursor-pointer">
+                  <CardContent className="p-6 flex items-center gap-4">
+                    <div className="bg-primary/10 p-3 rounded-lg">
+                      <service.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <span className="font-semibold text-foreground">{service.label}</span>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
