@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SEO from "@/components/SEO";
 
 const Services = () => {
   const [formData, setFormData] = useState({
@@ -67,8 +68,14 @@ const Services = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
+    <>
+      <SEO 
+        title="E-Services Municipaux"
+        description="Accédez aux services en ligne de la commune d'Imider : formulaires administratifs, prises de rendez-vous et téléchargement de documents officiels."
+        keywords="e-services Imider, services municipaux, mairie en ligne, formulaires administratifs, documents officiels"
+      />
+      <div className="min-h-screen">
+        {/* Header */}
       <section className="relative py-20 bg-gradient-desert">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center text-primary-foreground">
@@ -284,7 +291,8 @@ const Services = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

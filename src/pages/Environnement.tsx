@@ -1,6 +1,7 @@
 import { Droplets, Trees, Leaf, Recycle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import SEO from "@/components/SEO";
 import eauImage from "@/assets/environnement-eau.jpg";
 import reforestationImage from "@/assets/reforestation-projet.jpg";
 
@@ -43,8 +44,14 @@ const Environnement = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
+    <>
+      <SEO 
+        title="Environnement & Développement Durable"
+        description="Les initiatives écologiques d'Imider : gestion de l'eau, reforestation, énergies renouvelables et protection de l'environnement dans l'Atlas."
+        keywords="environnement Imider, développement durable, reforestation, gestion eau, énergies renouvelables, écologie Atlas"
+      />
+      <div className="min-h-screen">
+        {/* Header */}
       <section className="relative py-20 bg-gradient-oasis">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center text-accent-foreground">
@@ -210,7 +217,8 @@ const Environnement = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

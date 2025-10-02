@@ -2,6 +2,7 @@ import { Mountain, Users, Palmtree, ArrowRight, Calendar, Heart, FileText, Leaf 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import heroImage from "@/assets/hero-imider.jpg";
 import patternImage from "@/assets/pattern-amazigh.jpg";
 
@@ -48,8 +49,15 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
+    <>
+      <SEO 
+        title="Commune d'Imider"
+        description="Découvrez Imider, commune rurale amazighe au cœur de l'Atlas. 4294 habitants, 7 douars, un patrimoine millénaire et un engagement pour le développement durable."
+        keywords="Imider, Tinghir, Amazigh, Tamazight, Atlas, Maroc, tourisme durable, culture berbère, patrimoine, environnement"
+        ogImage="/hero-imider.jpg"
+      />
+      <div className="min-h-screen">
+        {/* Hero Section */}
       <section className="relative h-[90vh] overflow-hidden">
         <div className="absolute inset-0">
           <img
@@ -262,7 +270,8 @@ const Index = () => {
           </Link>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

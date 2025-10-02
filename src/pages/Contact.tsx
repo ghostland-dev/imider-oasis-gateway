@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
+import SEO from "@/components/SEO";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,11 +12,70 @@ const Contact = () => {
     subject: "",
     message: ""
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    // Validate name
+    if (!formData.name.trim()) {
+      newErrors.name = "Le nom est requis";
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Le nom doit contenir au moins 2 caractères";
+    } else if (formData.name.length > 100) {
+      newErrors.name = "Le nom ne peut pas dépasser 100 caractères";
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "L'email est requis";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Veuillez entrer une adresse email valide";
+    } else if (formData.email.length > 255) {
+      newErrors.email = "L'email ne peut pas dépasser 255 caractères";
+    }
+
+    // Validate subject
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Le sujet est requis";
+    } else if (formData.subject.trim().length < 3) {
+      newErrors.subject = "Le sujet doit contenir au moins 3 caractères";
+    } else if (formData.subject.length > 200) {
+      newErrors.subject = "Le sujet ne peut pas dépasser 200 caractères";
+    }
+
+    // Validate message
+    if (!formData.message.trim()) {
+      newErrors.message = "Le message est requis";
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "Le message doit contenir au moins 10 caractères";
+    } else if (formData.message.length > 2000) {
+      newErrors.message = "Le message ne peut pas dépasser 2000 caractères";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    
+    if (!validateForm()) {
+      toast.error("Veuillez corriger les erreurs dans le formulaire");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Simulate API call
+    setTimeout(() => {
+      toast.success("Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      setErrors({});
+      setIsSubmitting(false);
+    }, 1000);
   };
 
   const contactInfo = [
@@ -46,8 +106,14 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
+    <>
+      <SEO 
+        title="Contact"
+        description="Contactez la commune d'Imider pour toute question, suggestion ou demande d'information. Nous sommes à votre écoute."
+        keywords="contact Imider, mairie Imider, commune rurale, Tinghir, Drâa-Tafilalet"
+      />
+      <div className="min-h-screen">
+        {/* Header */}
       <section className="relative py-20 bg-gradient-desert">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center text-primary-foreground">
@@ -101,10 +167,20 @@ const Contact = () => {
                       type="text"
                       required
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                      onChange={(e) => {
+                        setFormData({ ...formData, name: e.target.value });
+                        if (errors.name) setErrors({ ...errors, name: "" });
+                      }}
+                      className={`w-full px-4 py-3 rounded-lg border ${errors.name ? 'border-destructive' : 'border-input'} bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent`}
                       placeholder="Votre nom"
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? "name-error" : undefined}
                     />
+                    {errors.name && (
+                      <p id="name-error" className="text-sm text-destructive" role="alert">
+                        {errors.name}
+                      </p>
+                    )}
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium text-foreground">
@@ -115,10 +191,20 @@ const Contact = () => {
                       type="email"
                       required
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                      onChange={(e) => {
+                        setFormData({ ...formData, email: e.target.value });
+                        if (errors.email) setErrors({ ...errors, email: "" });
+                      }}
+                      className={`w-full px-4 py-3 rounded-lg border ${errors.email ? 'border-destructive' : 'border-input'} bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent`}
                       placeholder="votre@email.com"
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "email-error" : undefined}
                     />
+                    {errors.email && (
+                      <p id="email-error" className="text-sm text-destructive" role="alert">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -131,10 +217,20 @@ const Contact = () => {
                     type="text"
                     required
                     value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                    onChange={(e) => {
+                      setFormData({ ...formData, subject: e.target.value });
+                      if (errors.subject) setErrors({ ...errors, subject: "" });
+                    }}
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.subject ? 'border-destructive' : 'border-input'} bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent`}
                     placeholder="Objet de votre message"
+                    aria-invalid={!!errors.subject}
+                    aria-describedby={errors.subject ? "subject-error" : undefined}
                   />
+                  {errors.subject && (
+                    <p id="subject-error" className="text-sm text-destructive" role="alert">
+                      {errors.subject}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -145,19 +241,30 @@ const Contact = () => {
                     id="message"
                     required
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onChange={(e) => {
+                      setFormData({ ...formData, message: e.target.value });
+                      if (errors.message) setErrors({ ...errors, message: "" });
+                    }}
                     rows={6}
-                    className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent resize-none"
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.message ? 'border-destructive' : 'border-input'} bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent resize-none`}
                     placeholder="Écrivez votre message ici..."
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? "message-error" : undefined}
                   />
+                  {errors.message && (
+                    <p id="message-error" className="text-sm text-destructive" role="alert">
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
 
                 <Button
                   type="submit"
                   size="lg"
                   className="w-full font-semibold"
+                  disabled={isSubmitting}
                 >
-                  Envoyer le Message
+                  {isSubmitting ? "Envoi en cours..." : "Envoyer le Message"}
                 </Button>
               </form>
             </CardContent>
@@ -186,7 +293,8 @@ const Contact = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -2,6 +2,7 @@ import { Footprints, Hotel, MapPinned, Camera } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import tourismeImage from "@/assets/tourisme-circuit.jpg";
 
 const Tourisme = () => {
@@ -45,8 +46,14 @@ const Tourisme = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
+    <>
+      <SEO 
+        title="Tourisme Durable"
+        description="Explorez les circuits de randonnée d'Imider, hébergements traditionnels et activités culturelles. Tourisme responsable dans l'Atlas marocain."
+        keywords="tourisme Imider, randonnée Atlas, kasbahs, hébergement traditionnel, écotourisme, Tinghir"
+      />
+      <div className="min-h-screen">
+        {/* Header */}
       <section className="relative py-20 bg-gradient-oasis">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center text-accent-foreground">
@@ -160,7 +167,8 @@ const Tourisme = () => {
           </CardContent>
         </Card>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

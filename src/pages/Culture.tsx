@@ -1,6 +1,7 @@
 import { Palette, Music, Languages, Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import PhotoGallery from "@/components/PhotoGallery";
+import SEO from "@/components/SEO";
 import artisanatImage from "@/assets/artisanat-imider.jpg";
 import kasbahdImage from "@/assets/kasbah-heritage.jpg";
 import tissageImage from "@/assets/tissage-tradition.jpg";
@@ -31,8 +32,14 @@ const Culture = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
+    <>
+      <SEO 
+        title="Culture & Patrimoine"
+        description="Découvrez le riche patrimoine culturel amazigh d'Imider : kasbahs historiques, artisanat traditionnel, danse Ahidous et langue Tamazight."
+        keywords="culture amazighe, patrimoine Imider, kasbahs, Ahidous, Tamazight, Tifinagh, artisanat berbère, tissage, poterie"
+      />
+      <div className="min-h-screen">
+        {/* Header */}
       <section className="relative py-20 bg-gradient-desert">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center text-primary-foreground">
@@ -163,7 +170,8 @@ const Culture = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

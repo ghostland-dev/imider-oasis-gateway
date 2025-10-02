@@ -1,6 +1,7 @@
 import { Calendar, Tag } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import SEO from "@/components/SEO";
 
 const Actualites = () => {
   const news = [
@@ -49,8 +50,14 @@ const Actualites = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
+    <>
+      <SEO 
+        title="Actualités"
+        description="Restez informé des événements, projets et initiatives de la commune d'Imider : festivals culturels, projets environnementaux et développements locaux."
+        keywords="actualités Imider, événements Imider, projets communauté, Festival Ahidous, Tinghir news"
+      />
+      <div className="min-h-screen">
+        {/* Header */}
       <section className="relative py-20 bg-gradient-sunset">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center text-primary-foreground">
@@ -120,7 +127,8 @@ const Actualites = () => {
           </Card>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

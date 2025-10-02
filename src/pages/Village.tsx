@@ -1,5 +1,6 @@
 import { Users, Mountain, Calendar, Home } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import SEO from "@/components/SEO";
 
 const Village = () => {
   const douars = [
@@ -20,8 +21,14 @@ const Village = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
+    <>
+      <SEO 
+        title="Le Village"
+        description="Imider : commune rurale amazighe de 4294 habitants répartis sur 7 douars. Découvrez notre histoire, géographie et les sept douars qui composent notre communauté."
+        keywords="village Imider, douars Imider, histoire Imider, géographie Atlas, Tinghir, Amazigh"
+      />
+      <div className="min-h-screen">
+        {/* Header */}
       <section className="relative py-20 bg-gradient-sunset">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center text-primary-foreground">
@@ -132,7 +139,8 @@ const Village = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 
