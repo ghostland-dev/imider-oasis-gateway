@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import AnimatedCard from "@/components/AnimatedCard";
 import heroImage from "@/assets/hero-imider.jpg";
 import patternImage from "@/assets/pattern-amazigh.jpg";
 
@@ -79,13 +80,20 @@ const Index = () => {
             </p>
             <div className="flex flex-wrap gap-4 animate-fade-in-slow">
               <Link to="/village">
-                <Button size="lg" className="font-semibold shadow-warm">
+                <Button 
+                  size="lg" 
+                  className="font-semibold shadow-soft btn-ripple hover:scale-105 transition-all duration-300"
+                >
                   Découvrir le Village
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link to="/tourisme">
-                <Button size="lg" variant="secondary" className="font-semibold shadow-soft">
+                <Button 
+                  size="lg" 
+                  variant="secondary" 
+                  className="font-semibold shadow-soft hover:scale-105 transition-all duration-300"
+                >
                   Explorer le Tourisme
                 </Button>
               </Link>
@@ -107,19 +115,23 @@ const Index = () => {
 
         <div className="grid md:grid-cols-3 gap-8">
           {highlights.map((item, index) => (
-            <Card key={index} className="shadow-soft hover:shadow-warm transition-all hover:-translate-y-2 animate-fade-in">
+            <AnimatedCard 
+              key={index} 
+              delay={index * 100}
+              className="shadow-soft group cursor-pointer"
+            >
               <CardContent className="p-8 text-center">
-                <div className="bg-gradient-desert p-4 rounded-2xl w-fit mx-auto mb-6 shadow-warm">
+                <div className="bg-gradient-desert p-4 rounded-2xl w-fit mx-auto mb-6 shadow-warm group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                   <item.icon className="h-8 w-8 text-primary-foreground" />
                 </div>
-                <h3 className="text-xl font-display font-semibold text-foreground mb-3">
+                <h3 className="text-xl font-display font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
                   {item.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
                   {item.description}
                 </p>
               </CardContent>
-            </Card>
+            </AnimatedCard>
           ))}
         </div>
       </section>
@@ -130,13 +142,15 @@ const Index = () => {
           <div className="flex flex-wrap justify-center gap-6">
             {quickServices.map((service, index) => (
               <Link key={index} to={service.path}>
-                <Card className="shadow-soft hover:shadow-warm transition-all hover:-translate-y-1 cursor-pointer">
+                <Card className="shadow-soft hover-lift cursor-pointer group">
                   <CardContent className="p-6 flex items-center gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
+                    <div className="bg-primary/10 p-3 rounded-lg group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
                       <service.icon className="h-6 w-6 text-primary" />
                     </div>
-                    <span className="font-semibold text-foreground">{service.label}</span>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                    <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {service.label}
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-1 group-hover:text-primary transition-all" />
                   </CardContent>
                 </Card>
               </Link>
@@ -172,9 +186,13 @@ const Index = () => {
                   exceptionnel préservé par ses habitants, gardiens d'un patrimoine millénaire.
                 </p>
                 <Link to="/village">
-                  <Button variant="outline" size="lg" className="font-semibold">
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="font-semibold group hover:scale-105 transition-all duration-300"
+                  >
                     En Savoir Plus
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
               </div>
@@ -222,29 +240,36 @@ const Index = () => {
             </p>
           </div>
           <Link to="/actualites">
-            <Button variant="outline">
+            <Button 
+              variant="outline"
+              className="hover:scale-105 transition-all duration-300 group"
+            >
               Voir Tout
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {recentNews.map((news, index) => (
-            <Card key={index} className="shadow-soft hover:shadow-warm transition-all hover:-translate-y-1">
+            <AnimatedCard 
+              key={index} 
+              delay={index * 100}
+              className="shadow-soft group cursor-pointer"
+            >
               <CardContent className="p-6">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3 group-hover:text-accent transition-colors">
                   <Calendar className="h-4 w-4 text-accent" />
                   {news.date}
                 </div>
-                <h3 className="font-display font-semibold text-lg text-foreground mb-2">
+                <h3 className="font-display font-semibold text-lg text-foreground mb-2 group-hover:text-primary transition-colors">
                   {news.title}
                 </h3>
-                <span className="inline-block bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
+                <span className="inline-block bg-primary/10 text-primary text-xs px-3 py-1 rounded-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   {news.category}
                 </span>
               </CardContent>
-            </Card>
+            </AnimatedCard>
           ))}
         </div>
       </section>
@@ -263,9 +288,13 @@ const Index = () => {
             et partagez l'authenticité de la vie amazighe.
           </p>
           <Link to="/contact">
-            <Button size="lg" variant="secondary" className="font-semibold shadow-soft">
+            <Button 
+              size="lg" 
+              variant="secondary" 
+              className="font-semibold shadow-soft btn-ripple hover:scale-105 transition-all duration-300 group"
+            >
               Planifier Votre Visite
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
         </div>

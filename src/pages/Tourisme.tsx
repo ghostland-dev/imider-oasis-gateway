@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import AnimatedCard from "@/components/AnimatedCard";
 import tourismeImage from "@/assets/tourisme-circuit.jpg";
 
 const Tourisme = () => {
@@ -86,19 +87,25 @@ const Tourisme = () => {
         </h2>
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {circuits.map((circuit, index) => (
-            <Card key={index} className="shadow-soft hover:shadow-warm transition-all hover:-translate-y-1">
+            <AnimatedCard 
+              key={index} 
+              delay={index * 100}
+              className="shadow-soft group"
+            >
               <CardHeader>
-                <div className="bg-gradient-oasis p-3 rounded-lg shadow-warm w-fit mb-3">
+                <div className="bg-gradient-oasis p-3 rounded-lg shadow-soft w-fit mb-3 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                   <Footprints className="h-6 w-6 text-accent-foreground" />
                 </div>
-                <CardTitle className="text-xl font-display">{circuit.name}</CardTitle>
+                <CardTitle className="text-xl font-display group-hover:text-primary transition-colors">
+                  {circuit.name}
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex gap-4 text-sm">
-                  <span className="bg-secondary px-3 py-1 rounded-full text-secondary-foreground">
+                  <span className="bg-secondary px-3 py-1 rounded-full text-secondary-foreground transition-all group-hover:bg-primary group-hover:text-primary-foreground">
                     {circuit.duration}
                   </span>
-                  <span className="bg-accent/10 px-3 py-1 rounded-full text-accent">
+                  <span className="bg-accent/10 px-3 py-1 rounded-full text-accent transition-all group-hover:bg-accent group-hover:text-accent-foreground">
                     {circuit.difficulty}
                   </span>
                 </div>
@@ -106,7 +113,7 @@ const Tourisme = () => {
                   {circuit.description}
                 </p>
               </CardContent>
-            </Card>
+            </AnimatedCard>
           ))}
         </div>
       </section>
@@ -119,26 +126,32 @@ const Tourisme = () => {
           </h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {services.map((service, index) => (
-              <Card key={index} className="shadow-soft">
+              <AnimatedCard 
+                key={index}
+                delay={index * 100}
+                className="shadow-soft group"
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-primary p-2 rounded-lg">
+                    <div className="bg-primary p-2 rounded-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                       <service.icon className="h-5 w-5 text-primary-foreground" />
                     </div>
-                    <CardTitle className="text-lg">{service.title}</CardTitle>
+                    <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                      {service.title}
+                    </CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
                     {service.items.map((item, idx) => (
-                      <li key={idx} className="text-muted-foreground flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-accent flex-shrink-0" />
+                      <li key={idx} className="text-muted-foreground flex items-center gap-2 group-hover:text-foreground transition-colors">
+                        <span className="h-1.5 w-1.5 rounded-full bg-accent flex-shrink-0 group-hover:scale-150 transition-transform" />
                         {item}
                       </li>
                     ))}
                   </ul>
                 </CardContent>
-              </Card>
+              </AnimatedCard>
             ))}
           </div>
         </div>
@@ -159,7 +172,7 @@ const Tourisme = () => {
               <Button
                 size="lg"
                 variant="secondary"
-                className="font-semibold shadow-soft hover:shadow-warm"
+                className="font-semibold shadow-soft btn-ripple hover:scale-105 transition-all duration-300"
               >
                 Nous Contacter
               </Button>

@@ -131,12 +131,21 @@ const Contact = () => {
       <section className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {contactInfo.map((info, index) => (
-            <Card key={index} className="shadow-soft hover:shadow-warm transition-all text-center">
-              <CardHeader>
-                <div className={`inline-flex p-3 rounded-lg bg-${info.color}/10 mx-auto mb-2`}>
-                  <info.icon className={`h-6 w-6 text-${info.color}`} />
+            <Card 
+              key={index} 
+              className="shadow-soft hover-lift group cursor-pointer overflow-hidden"
+              style={{ 
+                animationDelay: `${index * 100}ms`,
+                animation: 'cardEntrance 0.5s ease-out forwards'
+              }}
+            >
+              <CardHeader className="text-center">
+                <div className={`inline-flex p-3 rounded-lg bg-${info.color}/10 mx-auto mb-2 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6`}>
+                  <info.icon className={`h-6 w-6 text-${info.color} transition-transform duration-300`} />
                 </div>
-                <CardTitle className="text-lg">{info.title}</CardTitle>
+                <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                  {info.title}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
@@ -159,26 +168,32 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium text-foreground">
+                    <label htmlFor="name" className="text-sm font-medium text-foreground flex items-center gap-2">
                       Nom complet *
                     </label>
-                    <input
-                      id="name"
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => {
-                        setFormData({ ...formData, name: e.target.value });
-                        if (errors.name) setErrors({ ...errors, name: "" });
-                      }}
-                      className={`w-full px-4 py-3 rounded-lg border ${errors.name ? 'border-destructive' : 'border-input'} bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent`}
-                      placeholder="Votre nom"
-                      aria-invalid={!!errors.name}
-                      aria-describedby={errors.name ? "name-error" : undefined}
-                    />
+                    <div className="relative">
+                      <input
+                        id="name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (errors.name) setErrors({ ...errors, name: "" });
+                        }}
+                        className={`w-full px-4 py-3 rounded-lg border ${
+                          errors.name 
+                            ? 'border-destructive focus:border-destructive focus:ring-destructive' 
+                            : 'border-input focus:border-accent'
+                        } bg-background text-foreground focus:outline-none focus:ring-2 transition-all duration-200`}
+                        placeholder="Votre nom"
+                        aria-invalid={!!errors.name}
+                        aria-describedby={errors.name ? "name-error" : undefined}
+                      />
+                    </div>
                     {errors.name && (
-                      <p id="name-error" className="text-sm text-destructive" role="alert">
-                        {errors.name}
+                      <p id="name-error" className="text-sm text-destructive animate-fade-in flex items-center gap-1" role="alert">
+                        <span>⚠</span> {errors.name}
                       </p>
                     )}
                   </div>
@@ -186,23 +201,29 @@ const Contact = () => {
                     <label htmlFor="email" className="text-sm font-medium text-foreground">
                       Email *
                     </label>
-                    <input
-                      id="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => {
-                        setFormData({ ...formData, email: e.target.value });
-                        if (errors.email) setErrors({ ...errors, email: "" });
-                      }}
-                      className={`w-full px-4 py-3 rounded-lg border ${errors.email ? 'border-destructive' : 'border-input'} bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent`}
-                      placeholder="votre@email.com"
-                      aria-invalid={!!errors.email}
-                      aria-describedby={errors.email ? "email-error" : undefined}
-                    />
+                    <div className="relative">
+                      <input
+                        id="email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (errors.email) setErrors({ ...errors, email: "" });
+                        }}
+                        className={`w-full px-4 py-3 rounded-lg border ${
+                          errors.email 
+                            ? 'border-destructive focus:border-destructive focus:ring-destructive' 
+                            : 'border-input focus:border-accent'
+                        } bg-background text-foreground focus:outline-none focus:ring-2 transition-all duration-200`}
+                        placeholder="votre@email.com"
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "email-error" : undefined}
+                      />
+                    </div>
                     {errors.email && (
-                      <p id="email-error" className="text-sm text-destructive" role="alert">
-                        {errors.email}
+                      <p id="email-error" className="text-sm text-destructive animate-fade-in flex items-center gap-1" role="alert">
+                        <span>⚠</span> {errors.email}
                       </p>
                     )}
                   </div>
@@ -212,48 +233,63 @@ const Contact = () => {
                   <label htmlFor="subject" className="text-sm font-medium text-foreground">
                     Sujet *
                   </label>
-                  <input
-                    id="subject"
-                    type="text"
-                    required
-                    value={formData.subject}
-                    onChange={(e) => {
-                      setFormData({ ...formData, subject: e.target.value });
-                      if (errors.subject) setErrors({ ...errors, subject: "" });
-                    }}
-                    className={`w-full px-4 py-3 rounded-lg border ${errors.subject ? 'border-destructive' : 'border-input'} bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent`}
-                    placeholder="Objet de votre message"
-                    aria-invalid={!!errors.subject}
-                    aria-describedby={errors.subject ? "subject-error" : undefined}
-                  />
+                  <div className="relative">
+                    <input
+                      id="subject"
+                      type="text"
+                      required
+                      value={formData.subject}
+                      onChange={(e) => {
+                        setFormData({ ...formData, subject: e.target.value });
+                        if (errors.subject) setErrors({ ...errors, subject: "" });
+                      }}
+                      className={`w-full px-4 py-3 rounded-lg border ${
+                        errors.subject 
+                          ? 'border-destructive focus:border-destructive focus:ring-destructive' 
+                          : 'border-input focus:border-accent'
+                      } bg-background text-foreground focus:outline-none focus:ring-2 transition-all duration-200`}
+                      placeholder="Objet de votre message"
+                      aria-invalid={!!errors.subject}
+                      aria-describedby={errors.subject ? "subject-error" : undefined}
+                    />
+                  </div>
                   {errors.subject && (
-                    <p id="subject-error" className="text-sm text-destructive" role="alert">
-                      {errors.subject}
+                    <p id="subject-error" className="text-sm text-destructive animate-fade-in flex items-center gap-1" role="alert">
+                      <span>⚠</span> {errors.subject}
                     </p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium text-foreground">
-                    Message *
+                  <label htmlFor="message" className="text-sm font-medium text-foreground flex items-center justify-between">
+                    <span>Message *</span>
+                    <span className="text-xs text-muted-foreground">
+                      {formData.message.length} / 2000
+                    </span>
                   </label>
-                  <textarea
-                    id="message"
-                    required
-                    value={formData.message}
-                    onChange={(e) => {
-                      setFormData({ ...formData, message: e.target.value });
-                      if (errors.message) setErrors({ ...errors, message: "" });
-                    }}
-                    rows={6}
-                    className={`w-full px-4 py-3 rounded-lg border ${errors.message ? 'border-destructive' : 'border-input'} bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent resize-none`}
-                    placeholder="Écrivez votre message ici..."
-                    aria-invalid={!!errors.message}
-                    aria-describedby={errors.message ? "message-error" : undefined}
-                  />
+                  <div className="relative">
+                    <textarea
+                      id="message"
+                      required
+                      value={formData.message}
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (errors.message) setErrors({ ...errors, message: "" });
+                      }}
+                      rows={6}
+                      className={`w-full px-4 py-3 rounded-lg border ${
+                        errors.message 
+                          ? 'border-destructive focus:border-destructive focus:ring-destructive' 
+                          : 'border-input focus:border-accent'
+                      } bg-background text-foreground focus:outline-none focus:ring-2 resize-none transition-all duration-200`}
+                      placeholder="Écrivez votre message ici..."
+                      aria-invalid={!!errors.message}
+                      aria-describedby={errors.message ? "message-error" : undefined}
+                    />
+                  </div>
                   {errors.message && (
-                    <p id="message-error" className="text-sm text-destructive" role="alert">
-                      {errors.message}
+                    <p id="message-error" className="text-sm text-destructive animate-fade-in flex items-center gap-1" role="alert">
+                      <span>⚠</span> {errors.message}
                     </p>
                   )}
                 </div>
@@ -261,10 +297,17 @@ const Contact = () => {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full font-semibold"
+                  className="w-full font-semibold btn-ripple shadow-soft hover:shadow-warm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Envoi en cours..." : "Envoyer le Message"}
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      <span className="animate-spin h-4 w-4 border-2 border-primary-foreground border-t-transparent rounded-full" />
+                      Envoi en cours...
+                    </span>
+                  ) : (
+                    "Envoyer le Message"
+                  )}
                 </Button>
               </form>
             </CardContent>
